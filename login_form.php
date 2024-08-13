@@ -9,6 +9,10 @@ if (isset($_GET['errors'])) {
 if (isset($_GET['old_data'])) {
     $old_data = json_decode($_GET['old_data'], true);
 }
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 ?>
 
 <!doctype html>
@@ -28,10 +32,10 @@ if (isset($_GET['old_data'])) {
         <form action="./controller/login_process.php" method="post" class="d-flex justify-content-between">
             <div class="login-header-text">Cafeteria</div>
             <div class="container">
-                <div class="my-2">
+                <div class="my-3">
                     <label for="inputEmail" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control emailInput" id="inputEmail"
-                        placeholder="Enter Your Name..." aria-describedby="emailHelp" value="<?php $em = isset($old_data['email']) ? $old_data['email'] : "";
+                        placeholder="Enter Your Email..." aria-describedby="emailHelp" value="<?php $em = isset($old_data['email']) ? $old_data['email'] : "";
                         echo $em ?>">
                     <span class="text-danger float-start">
                         <?php
@@ -40,7 +44,7 @@ if (isset($_GET['old_data'])) {
                         ?>
                     </span>
                 </div>
-                <div class="mb-3">
+                <div class="my-4">
                     <label for="inputPassword" class="form-label">Password</label>
                     <input type="password" name="password" class="form-control passwordInput" id="inputPassword"
                         placeholder="Enter Your Password...">
@@ -54,7 +58,8 @@ if (isset($_GET['old_data'])) {
                 </div>
                 <button type="submit" class="btn login-btn my-2 w-100">Login</button>
                 <div>
-                    <span class="d-flex justify-content-between">Don't have an account?<a href="#">Create an
+                    <span class="d-flex justify-content-between">Don't have an account?<a
+                            href="./registration_form.php">Create an
                             Account</a></span>
                 </div>
             </div>

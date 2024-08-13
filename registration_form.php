@@ -11,7 +11,7 @@ if (isset($_GET['old_data'])) {
 // var_dump($old_data);
 
 ?>
-
+<!-- TODO:  -->
 
 <!doctype html>
 <html lang="en">
@@ -61,13 +61,6 @@ if (isset($_GET['old_data'])) {
                     <input type="number" name="ext" class="form-control" id="ext" placeholder="Enter floor number...">
                 </div>
                 <div class="mb-3">
-                    <label for="usrType" class="form-label">User Type</label>
-                    <select class="form-select" name="usrType" id="usrType" aria-label="Default select example">
-                        <option value="user">user</option>
-                        <option value="admin">admin</option>
-                    </select>
-                </div>
-                <div class="mb-3">
                     <label for="photo" class="form-label">Profile Photo</label>
                     <input type="file" name="photo" class="form-control" id="photo">
                 </div>
@@ -75,7 +68,8 @@ if (isset($_GET['old_data'])) {
                     <button type="submit" class="btn w-100 register-btn">Register</button>
                 </div>
                 <div>
-                    <span class="d-flex justify-content-between">Already have an Account?<a href="#">Login</a></span>
+                    <span class="d-flex justify-content-between">Already have an Account?<a
+                            href="./login_form.php">Login</a></span>
 
                 </div>
             </div>

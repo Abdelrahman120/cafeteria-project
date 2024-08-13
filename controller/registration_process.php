@@ -9,7 +9,6 @@ $confirmPassword = $_POST['confirmPassword'];
 $roomNo = $_POST['roomNumber'];
 $ext = $_POST['ext'];
 $photo = $_FILES['photo'];
-$usrType = $_POST['usrType'];
 
 $errors = [];
 $old_data = [];
@@ -37,7 +36,7 @@ if (empty($photo['tmp_name'])) {
 
 if ($errors) {
     $errors = json_encode($errors);
-    $url = "Location: registration.php?errors={$errors}";
+    $url = "Location: ../registration_form.php?errors={$errors}";
     if ($old_data) {
         $old_data = json_encode($old_data);
         $url .= "&old_data={$old_data}";
@@ -47,20 +46,20 @@ if ($errors) {
     $currentTime = time();
     $tmpName = $_FILES['photo']['tmp_name'];
     $imgOriginalName = $_FILES['photo']['name'];
-    $fileName = "/images/Cafeteria Image {$currentTime}.{$imageExtension}";
+    $fileName = "../images/Cafeteria Image {$currentTime}.{$imageExtension}";
     $stored = move_uploaded_file($tmpName, $fileName);
 
     if ($stored) {
         try {
-            $insertionQuery = "INSERT INTO User (email, name, room, password, type, image) VALUES (:userEmail, :userName, :userRoom, :userPassword, :userType, :userImage)";
+            $insertionQuery = "INSERT INTO User (email, name, room, password, image, ext) VALUES (:userEmail, :userName, :userRoom, :userPassword, :userImage, :userExt)";
             $insertion = $database->prepare($insertionQuery); // preparing statement for execution.
             //------ binding ------//
             $insertion->bindParam(':userEmail', $email);
             $insertion->bindParam(':userName', $name);
             $insertion->bindParam(':userRoom', $roomNo);
             $insertion->bindParam(':userPassword', $password);
-            $insertion->bindParam(':userType', $usrType);
             $insertion->bindParam(':userImage', $fileName);
+            $insertion->bindParam(':userExt', $ext);
             $insertion->execute();
             //---------------------//
 
