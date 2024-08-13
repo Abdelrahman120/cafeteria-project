@@ -1,3 +1,16 @@
+<?php
+$errors = [];
+$old_data = [];
+
+if (isset($_GET['errors'])) {
+    $errors = json_decode($_GET['errors'], true);
+}
+
+if (isset($_GET['old_data'])) {
+    $old_data = json_decode($_GET['old_data'], true);
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -12,19 +25,32 @@
 
 <body>
     <div class="login-container">
-        <form action="#" method="post" class="d-flex justify-content-between">
+        <form action="./controller/login_process.php" method="post" class="d-flex justify-content-between">
             <div class="login-header-text">Cafeteria</div>
             <div class="container">
                 <div class="my-2">
                     <label for="inputEmail" class="form-label">Email</label>
-                    <input type="email" class="form-control emailInput" id="inputEmail" placeholder="Enter Your Name..."
-                        aria-describedby="emailHelp">
+                    <input type="email" name="email" class="form-control emailInput" id="inputEmail"
+                        placeholder="Enter Your Name..." aria-describedby="emailHelp" value="<?php $em = isset($old_data['email']) ? $old_data['email'] : "";
+                        echo $em ?>">
+                    <span class="text-danger float-start">
+                        <?php
+                        $emailError = isset($errors['email']) ? $errors['email'] : '';
+                        echo $emailError;
+                        ?>
+                    </span>
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">Password</label>
-                    <input type="password" class="form-control passwordInput" id="inputPassword"
+                    <input type="password" name="password" class="form-control passwordInput" id="inputPassword"
                         placeholder="Enter Your Password...">
                     <div id="forget" class="form-text">Forget Password?</div>
+                    <span class="text-danger float-start">
+                        <?php
+                        $passwordError = isset($errors['password']) ? $errors['password'] : '';
+                        echo $passwordError;
+                        ?>
+                    </span>
                 </div>
                 <button type="submit" class="btn login-btn my-2 w-100">Login</button>
                 <div>
@@ -36,8 +62,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-        crossorigin="anonymous"></script>
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>
