@@ -15,22 +15,26 @@ $old_data = [];
 
 foreach ($_POST as $key => $val) {
     if (empty($val)) {
-        $errors[$key] = "{$key} is required";
+        $errors[$key] = "*{$key} is required";
     } else {
         $old_data[$key] = $val;
     }
 }
 
+if (empty($confirmPassword)) {
+    $errors['cPassword'] = "*Please confirm password";
+}
 if ($password !== $confirmPassword) {
-    $errors['cPassword'] = "Password doesn't match";
+    $errors['cPassword'] = "*Password doesn't match";
+    $errors['password'] = "*Password doesn't match";
 }
 
 if (empty($photo['tmp_name'])) {
-    $errors['photo'] = "Profile photo is required";
+    $errors['photo'] = "*Profile photo is required";
 } else {
     $imageExtension = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
     if (!in_array($imageExtension, ['jpeg', 'jpg', 'png'])) {
-        $errors['photo'] = "Invalid profile photo format";
+        $errors['photo'] = "*Invalid profile photo format";
     }
 }
 

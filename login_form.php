@@ -24,20 +24,20 @@ ini_set('display_errors', 1);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link rel="stylesheet" href="./style/login_form.css">
+    <link rel="stylesheet" href="style/login_form.css">
 </head>
 
 <body>
-    <div class="login-container">
-        <form action="./controller/login_process.php" method="post" class="d-flex justify-content-between">
+    <div class="login-container h-100">
+        <form action="controller/login_process.php" method="post" class="d-flex justify-content-between">
             <div class="login-header-text">Cafeteria</div>
             <div class="container">
-                <div class="my-3">
+                <div class="mt-3">
                     <label for="inputEmail" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control emailInput" id="inputEmail"
-                        placeholder="Enter Your Email..." aria-describedby="emailHelp" value="<?php $em = isset($old_data['email']) ? $old_data['email'] : "";
-                        echo $em ?>">
-                    <span class="text-danger float-start">
+                        placeholder="Enter Your Email..." aria-describedby="emailHelp" value="<?php $userEmail = isset($old_data['email']) ? $old_data['email'] : "";
+                                                                                                echo $userEmail ?>">
+                    <span class="text-danger float-end">
                         <?php
                         $emailError = isset($errors['email']) ? $errors['email'] : '';
                         echo $emailError;
@@ -48,19 +48,24 @@ ini_set('display_errors', 1);
                     <label for="inputPassword" class="form-label">Password</label>
                     <input type="password" name="password" class="form-control passwordInput" id="inputPassword"
                         placeholder="Enter Your Password...">
-                    <div id="forget" class="form-text">Forget Password?</div>
-                    <span class="text-danger float-start">
-                        <?php
-                        $passwordError = isset($errors['password']) ? $errors['password'] : '';
-                        echo $passwordError;
-                        ?>
-                    </span>
+                    <div id="forget" class="form-text">Forget Password?
+                        <span class="text-danger float-end">
+                            <?php
+                            $passwordError = isset($errors['password']) ? $errors['password'] : '';
+                            echo $passwordError;
+                            ?>
+                        </span>
+                    </div>
+
                 </div>
                 <button type="submit" class="btn login-btn my-2 w-100">Login</button>
                 <div>
-                    <span class="d-flex justify-content-between">Don't have an account?<a
-                            href="./registration_form.php">Create an
-                            Account</a></span>
+                    <span class="d-flex justify-content-between">
+                        Don't have an account?
+                        <a href="registration_form.php">
+                            Create an Account
+                        </a>
+                    </span>
                 </div>
             </div>
         </form>
@@ -68,7 +73,7 @@ ini_set('display_errors', 1);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-        </script>
+    </script>
 </body>
 
 </html>

@@ -14,15 +14,15 @@ $errors = [];
 $old_data = [];
 
 if (empty($email)) {
-    $errors['email'] = "Please enter email.";
+    $errors['email'] = "*Please enter email.";
 } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors['email'] = "Please enter a valid email.";
+    $errors['email'] = "*Please enter a valid email.";
 } else {
     $old_data['email'] = $email;
 }
 
 if (empty($password)) {
-    $errors['password'] = "Please enter password.";
+    $errors['password'] = "*Please enter password.";
 }
 
 if ($errors) {
@@ -44,17 +44,18 @@ if ($errors) {
 
         if ($user) {
             if ($password === $user['password']) {
-                $_SESSION['email'] = $user['email'];
+                $_SESSION['login-email'] = $user['email'];
                 $_SESSION['login'] = true;
-                header("Location: ../welcome.php");
+                $_SESSION['user_id'] = $user['id'];
+                header("Location: ../order.view.php");
                 exit();
             } else {
-                $_SESSION['errors'] = "Invalid Email Or Password";
+                $_SESSION['errors'] = "*Invalid Email Or Password";
                 header("Location: ../login_form.php?errors=" . urlencode($_SESSION['errors']));
                 exit();
             }
         } else {
-            $_SESSION['errors'] = "Invalid Email Or Password";
+            $_SESSION['errors'] = "*Invalid Email Or Password";
             header("Location: ../login_form.php?errors=" . urlencode($_SESSION['errors']));
             exit();
         }
