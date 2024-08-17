@@ -36,13 +36,19 @@ ini_set('display_errors', 1);
                     <label for="inputEmail" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control emailInput" id="inputEmail"
                         placeholder="Enter Your Email..." aria-describedby="emailHelp" value="<?php $userEmail = isset($old_data['email']) ? $old_data['email'] : "";
-                                                                                                echo $userEmail ?>">
+                        echo $userEmail ?>">
                     <span class="text-danger float-end">
                         <?php
                         $emailError = isset($errors['email']) ? $errors['email'] : '';
                         echo $emailError;
                         ?>
                     </span>
+                    <!-- <span class="text-danger float-end"> -->
+                    <?php
+                       // $emailSessionError = isset($_GET['errors']) ? $_GET['errors'] : '';
+                       // echo $emailSessionError;
+                        ?>
+                    <!-- </span> -->
                 </div>
                 <div class="my-4">
                     <label for="inputPassword" class="form-label">Password</label>
@@ -55,6 +61,13 @@ ini_set('display_errors', 1);
                             echo $passwordError;
                             ?>
                         </span>
+                        <!-- <span class="text-danger float-end"> -->
+                        <?php
+                            // $passwordSessionError = isset($_GET['errors']) ? $_GET['errors'] : '';
+                            // echo $passwordSessionError;
+                            ?>
+                        <!-- </span> -->
+
                     </div>
 
                 </div>
