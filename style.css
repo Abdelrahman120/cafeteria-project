@@ -1,0 +1,24 @@
+:root{
+    --main-color:#20100d;
+}
+
+
+body{
+    height: 5000px;
+}
+
+.navbar .navbar-brand{
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.navbar{
+    background-color:var(--main-color)
+}
+
+body .header_carosel .carousel-item{
+
+    
+    margin-top: 25px;
+
+}
