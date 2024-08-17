@@ -1,6 +1,7 @@
 <?php
 require 'db/db_controllers.php';
-require './utils/item_card.php';
+require './utils/draw_table.php';
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ?>
@@ -33,42 +34,7 @@ ini_set('display_errors', 1);
 
     <header>
         <!----NAVBAR---->
-        <nav class="navbar navbar-expand-lg navigation-bar sticky-top ">
-            <div class="container  ">
-                <a class="navbar-brand ps-4 text-light fw-bolder fs-1" href="#">Cafetria</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse navbar- " id="navbarSupportedContent">
-                    <ul class="navbar-nav  me-auto mb-2 mb-lg-0 " style="margin-left: 17%;">
-                        <li class="nav-item ms-5">
-                            <a class="nav-link active text-light  " aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link" href="#">Products</a>
-                        </li>
-
-                        <li class="nav-item ms-3">
-                            <a class="nav-link" href="#">Users</a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link" href="#">Manual Order</a>
-                        </li>
-                        <li class="nav-item ms-3">
-                            <a class="nav-link" href="#">Checks</a>
-                        </li>
-                    </ul>
-                    <button class="btn fs-3 text-light" type="submit"><i class="fas fa-shopping-bag"></i></button>
-                    <button class="btn fs-3 text-light" type="submit"><i class="fas fa-user"></i></button>
-                    <span>Admin Name</span>
-
-                </div>
-            </div>
-
-
-        </nav>
+        <?php include "./utils/admin_navbar.php"; ?>
     </header>
     <main class="main-body">
         <div class="container">
@@ -77,6 +43,7 @@ ini_set('display_errors', 1);
 
 
         <?php
+
         try {
             $selection_query2 = "SELECT distinct order_id,room,ext,name,id,status,total,date   FROM admin_order;";
             $select2 = $database->prepare($selection_query2);
@@ -111,6 +78,8 @@ ini_set('display_errors', 1);
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script>
+
+
         var selectedValue = "pending";
         var selection = document.getElementsByClassName('status');
         Array.prototype.forEach.call(selection, function (entry) {
@@ -119,20 +88,13 @@ ini_set('display_errors', 1);
             entry.addEventListener('change', function () {
                 selectedValue = this.value;
 
-                console.log(selectedValue);
-
-
+                // console.log(selectedValue);
             });
 
         });
 
-
-
-
-
         function setSelectedValue(selectObj) {
-            console.log(selectObj.options);
-
+            // console.log(selectObj.options);
             for (var i = 0; i < selectObj.options.length; i++) {
 
                 if (selectObj.options[i].value == selectObj.getAttribute("selected-value")) {

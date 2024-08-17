@@ -4,7 +4,7 @@ require 'db_conn.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-global $database;
+// global $database;
 $database = connection_using_pdo($db_name, $db_user, $db_pass, $db_host, $db_port);
 
 function user_insert($database)
@@ -26,11 +26,11 @@ function user_insert($database)
 
 //user_insert($database);
 
-function update_status($status_update, $order_id)
+function update_status($database, $status_update, $order_id)
 {
     try {
         $update_query = " UPDATE `Orders` SET `status` =:status_value WHERE `id`=:order_id ";
-        $update_stmt = $GLOBALS['database']->prepare($update_query);
+        $update_stmt = $database->prepare($update_query);
         $status = $status_update;
         $id = $order_id;
         $update_stmt->bindParam(':status_value', $status, PDO::PARAM_STR);
