@@ -31,7 +31,7 @@ if (isset($_GET['old_data'])) {
                     <label for="inputName" class="form-label">Name</label>
                     <input type="text" name="name" class="form-control" id="inputName" placeholder="Enter Your Name..."
                         aria-describedby="nameHelp" value="<?php $nm = isset($old_data['name']) ? $old_data['name'] : "";
-                                                            echo $nm ?>">
+                        echo $nm ?>">
                     <span class="text-danger float-end mb-4">
                         <?php
                         $nameError = isset($errors['name']) ? $errors['name'] : '';
@@ -43,7 +43,7 @@ if (isset($_GET['old_data'])) {
                     <label for="inputEmail" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control" id="inputEmail"
                         placeholder="Enter Your Email..." aria-describedby="emailHelp" value="<?php $em = isset($old_data['email']) ? $old_data['email'] : "";
-                                                                                                echo $em ?>">
+                        echo $em ?>">
                     <span class="text-danger float-end mb-4">
                         <?php
                         $emailError = isset($errors['email']) ? $errors['email'] : '';
@@ -77,7 +77,7 @@ if (isset($_GET['old_data'])) {
                     <label for="roomNo" class="form-label">Room Number</label>
                     <input type="number" name="roomNumber" class="form-control" id="roomNo"
                         placeholder="Enter room number..." value="<?php $rn = isset($old_data['roomNumber']) ? $old_data['roomNumber'] : "";
-                                                                    echo $rn ?>">
+                        echo $rn ?>">
                     <span class="text-danger float-end mb-4">
                         <?php
                         $roomNoError = isset($errors['roomNumber']) ? $errors['roomNumber'] : '';
@@ -89,7 +89,7 @@ if (isset($_GET['old_data'])) {
                     <label for="ext" class="form-label">Ext.</label>
                     <input type="number" name="ext" class="form-control" id="ext" placeholder="Enter floor number..."
                         value="<?php $ex = isset($old_data['ext']) ? $old_data['ext'] : "";
-                                echo $ex ?>">
+                        echo $ex ?>">
                     <span class="text-danger float-end mb-4">
                         <?php
                         $extError = isset($errors['ext']) ? $errors['ext'] : '';
@@ -100,7 +100,7 @@ if (isset($_GET['old_data'])) {
                 <div class="mb-5">
                     <label for="photo" class="form-label">Profile Photo</label>
                     <input type="file" name="photo" class="form-control" id="photo" value="<?php $ex = isset($old_data['photo']) ? $old_data['photo'] : "";
-                                                                                            echo $ex ?>">
+                    echo $ex ?>">
                     <span class="text-danger float-end mb-4">
                         <?php
                         $photoError = isset($errors['photo']) ? $errors['photo'] : '';
@@ -123,7 +123,7 @@ if (isset($_GET['old_data'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-    </script>
+        </script>
 </body>
 
 </html>
