@@ -10,8 +10,9 @@ require "../db/db_conn.php";
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$errors = [];
 $old_data = [];
+
+$errors = [];
 
 if (empty($email)) {
     $errors['email'] = "*Please enter email.";
@@ -51,12 +52,12 @@ if ($errors) {
                 exit();
             } else {
                 $_SESSION['errors'] = "*Invalid Email Or Password";
-                header("Location: ../login_form.php?errors=" . urlencode($_SESSION['errors']));
+                header("Location: ../login_form.php?session_errors=" . urlencode($_SESSION['errors']));
                 exit();
             }
         } else {
             $_SESSION['errors'] = "*Invalid Email Or Password";
-            header("Location: ../login_form.php?errors=" . urlencode($_SESSION['errors']));
+            header("Location: ../login_form.php?session_errors=" . urlencode($_SESSION['errors']));
             exit();
         }
     } catch (PDOException $e) {

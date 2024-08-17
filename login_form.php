@@ -45,9 +45,9 @@ ini_set('display_errors', 1);
                     </span>
                     <!-- <span class="text-danger float-end"> -->
                     <?php
-                       // $emailSessionError = isset($_GET['errors']) ? $_GET['errors'] : '';
-                       // echo $emailSessionError;
-                        ?>
+                    // $emailSessionError = isset($_GET['errors']) ? $_GET['errors'] : '';
+                    // echo $emailSessionError;
+                    ?>
                     <!-- </span> -->
                 </div>
                 <div class="my-4">
@@ -61,12 +61,12 @@ ini_set('display_errors', 1);
                             echo $passwordError;
                             ?>
                         </span>
-                        <!-- <span class="text-danger float-end"> -->
-                        <?php
-                            // $passwordSessionError = isset($_GET['errors']) ? $_GET['errors'] : '';
-                            // echo $passwordSessionError;
+                        <span class="text-danger float-end">
+                            <?php
+                            $passwordSessionError = isset($_GET['session_errors']) ? $_GET['session_errors'] : '';
+                            echo $passwordSessionError;
                             ?>
-                        <!-- </span> -->
+                        </span>
 
                     </div>
 
@@ -86,7 +86,7 @@ ini_set('display_errors', 1);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-    </script>
+        </script>
 </body>
 
 </html>
