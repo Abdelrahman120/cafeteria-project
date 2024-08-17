@@ -68,9 +68,6 @@ ini_set('display_errors', 1);
         }
         ?>
 
-
-        <hr><br>
-
     </main>
 
 

@@ -34,12 +34,6 @@ function OpenTable($row)
                      
 ";
 
-
-
-
-
-
-
 }
 function orderDetails($row)
 {
