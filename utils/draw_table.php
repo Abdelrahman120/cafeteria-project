@@ -58,7 +58,7 @@ function orderDetails($row)
                                 </div> </td>  
        <td>
                             <button 
-                             class='btn btn-warning'  onclick='redirect({$row['order_id']})' type='submit'>Update</button>
+                             class='btn' style='color:white; background-color:#AF8F6F;'  onclick='redirect({$row['order_id']})' type='submit'>Update</button>
                              </td>  
      </tr>";
 
