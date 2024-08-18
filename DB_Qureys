@@ -1,0 +1,65 @@
+create database cafetria;
+use cafetria;
+
+CREATE TABLE User (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    name VARCHAR(255) NOT NULL,
+    room VARCHAR(50),
+    password VARCHAR(255) NOT NULL,
+    type ENUM('admin', 'user') NOT NULL,
+    image VARCHAR(255),
+    ext VARCHAR(10)
+);
+
+	CREATE TABLE Category (
+		id INT AUTO_INCREMENT PRIMARY KEY,
+		name VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE Product (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    status ENUM('available', 'unavailable') NOT NULL DEFAULT 'available',
+    image VARCHAR(255),
+    cat_id INT,
+    FOREIGN KEY (cat_id) REFERENCES Category(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATETIME NOT NULL,
+    status ENUM('pending', 'completed', 'canceled') NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    notes TEXT,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES User(id) ON DELETE CASCADE
+);
+
+CREATE TABLE OrderDetails (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_name VARCHAR(255) NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES Orders(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Order_product (
+    order_id INT,
+    product_id INT,
+    quantity INT NOT NULL,
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id) REFERENCES Orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE
+);
+
+Create view admin_order as 
+Select 
+Orders.date,Orders.total,Orders.status,
+User.id,User.name,User.ext,User.room,Order_product.product_id,Order_product.order_id,Order_product.quantity,
+Product.name as product_name
+from Orders
+Join User On Orders.user_id=User.id
+join Order_product on Order_product.order_id=Orders.id join Product on Order_product.product_id=Product.id ;

@@ -19,8 +19,9 @@ echo'
                 <div class="collapse navbar-collapse nav-element d-flex align-item-center justify-content-between"
                     id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link text-light" href="product.php">Products</a>
                         <a class="nav-link text-light" href="all_users.php">All Users</a>
+                        <a class="nav-link text-light" href="product.php">Products</a>
+                        <a class="nav-link text-light" href="add_product.php">Add Product</a>
                         <a class="nav-link text-light" href="fatoraAdmin.php">Orders</a>
                         <a class="nav-link text-light" href="checks.php">Checks</a>
                         <a class="nav-link text-light" href="order_admin_page.php">User Order</a>
