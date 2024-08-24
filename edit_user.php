@@ -79,7 +79,8 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
     $image_path = $current_image;
 }
 
-
+$password=$_POST['password'];
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 try {
     $update_q="UPDATE `User` SET name = :username,
     email = :useremail,
@@ -93,7 +94,7 @@ WHERE
         $update_stat=$db->prepare($update_q);
         $update_stat->bindParam(':username', $_POST['name']);
         $update_stat->bindParam(':useremail', $_POST['email']);
-        $update_stat->bindParam(':userpassword', $_POST['password']);
+        $update_stat->bindParam(':userpassword', $hashed_password);
         $update_stat->bindParam(':userimage', $image_path);
         $update_stat->bindParam(':room', $_POST['room']);
         $update_stat->bindParam(':ex', $_POST['ex']);
