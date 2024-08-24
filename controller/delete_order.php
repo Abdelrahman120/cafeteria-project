@@ -12,7 +12,7 @@ $cancelled = 'canceled';
 try {
     $updateQuery = "UPDATE `Orders` SET `status` = :canceled WHERE `id` = :order_id";
 
-    $update = $database->prepare($updateQuery);
+    $update = $db->prepare($updateQuery);
 
     $update->bindParam(':order_id', $order_id, PDO::PARAM_INT);
 

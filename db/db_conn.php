@@ -1,9 +1,9 @@
 <?php
 
-$db_name = 'PHP';
+$db_name = 'cafetria';
 $db_host = 'localhost';
-$db_user = 'jaafar';
-$db_pass = 'MHJaafar@019364';
+$db_user = 'newuser';
+$db_pass = 'password';
 $db_port = '3306';
 
 function connection_using_pdo($db_host, $db_user, $db_pass, $db_name, $db_port)
@@ -19,4 +19,4 @@ function connection_using_pdo($db_host, $db_user, $db_pass, $db_name, $db_port)
     return $PDO;
 }
 
-$database = connection_using_pdo($db_host, $db_user, $db_pass, $db_name, $db_port);
+$db = connection_using_pdo($db_host, $db_user, $db_pass, $db_name, $db_port);

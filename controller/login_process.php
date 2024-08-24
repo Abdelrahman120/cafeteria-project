@@ -37,7 +37,7 @@ if ($errors) {
 } else {
     try {
         $query = "SELECT * FROM `User` WHERE `email` = :email";
-        $stm = $database->prepare($query);
+        $stm = $db->prepare($query);
         $stm->bindParam(':email', $email, PDO::PARAM_STR);
         $stm->execute();
 
