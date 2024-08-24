@@ -7,13 +7,11 @@ if (isset($_GET['old_data'])) {
     $old_data = json_decode($_GET['old_data'], true);
 }
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-    // Redirect non-logged-in users to login page
     header("Location: login_form.php");
     exit();
 }
 
 if ($_SESSION['user_type'] !== 'admin') {
-    // Redirect non-admin users to a different page, for example, user dashboard
     header("Location: fatoraOreder.php");
     exit();
 }

@@ -1,32 +1,34 @@
 <?php 
 require "credit.php";
 session_start();
-print_r($_POST);
-$total = $_POST['total'];
 
+$total = $_POST['total'];
 $notes = $_POST['notes'];
 $product_names = $_POST['itemname'];
 $quantities = $_POST['itemQuantity'];
 $prices = $_POST['itemprice'];
 
+if (empty($product_names) || empty($quantities) || empty($prices) || count($product_names) !== count($quantities) || count($product_names) !== count($prices)) {
+    $_SESSION['error_messages'][] = 'One of the fields is empty .';
+    header("Location: fatoraOreder.php");
+    exit();
+}
 try {
-    
-    $sql = "INSERT INTO Orders(date, status, total, notes , user_id) VALUES (:date, :status, :total, :notes,  :user_id)";
+    $sql = "INSERT INTO Orders(date, status, total, notes, user_id) VALUES (:date, :status, :total, :notes, :user_id)";
     $stmt = $db->prepare($sql);
     $user_id = $_SESSION['user_id'];
-    $stmt->bindParam(':user_id', $user_id);
-
     $date = date('Y-m-d H:i:s'); 
     $status = 'pending'; 
+
     $stmt->bindParam(':date', $date);
     $stmt->bindParam(':status', $status);
     $stmt->bindParam(':total', $total);
     $stmt->bindParam(':notes', $notes);
-
+    $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
     $orderId = $db->lastInsertId();
-    
+
     $sql = "INSERT INTO OrderDetails(order_id, product_name, quantity, price) VALUES (:order_id, :product_name, :quantity, :price)";
     $stmt = $db->prepare($sql);
 
@@ -41,26 +43,24 @@ try {
             throw new Exception('One of the fields is empty');
         }
 
-        // Get product_id from the product_name (You may need a query here if the product_id is not directly provided)
         $stmt_product = $db->prepare("SELECT id FROM Product WHERE name = :product_name");
         $stmt_product->bindParam(':product_name', $product_name);
         $stmt_product->execute();
         $product_id = $stmt_product->fetchColumn();
 
-        if(!$product_id) {
+        if (!$product_id) {
             throw new Exception('Product not found');
         }
 
-        $stmt->bindParam(':order_id', $orderId);
-        $stmt->bindParam(':product_name', $product_name);
-        $stmt->bindParam(':quantity', $quantity);
-        $stmt->bindParam(':price', $price);
+        $stmt->bindValue(':order_id', $orderId);
+        $stmt->bindValue(':product_name', $product_name);
+        $stmt->bindValue(':quantity', $quantity);
+        $stmt->bindValue(':price', $price);
         $stmt->execute();
 
-        // Insert into Order_product
-        $stmt_order_product->bindParam(':order_id', $orderId);
-        $stmt_order_product->bindParam(':product_id', $product_id);
-        $stmt_order_product->bindParam(':quantity', $quantity);
+        $stmt_order_product->bindValue(':order_id', $orderId);
+        $stmt_order_product->bindValue(':product_id', $product_id);
+        $stmt_order_product->bindValue(':quantity', $quantity);
         $stmt_order_product->execute();
     }
 

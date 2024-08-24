@@ -13,4 +13,4 @@ $update_stmt->bindParam(':status_value', $status, PDO::PARAM_STR);
 $update_stmt->bindParam(':order_id', $id, PDO::PARAM_INT);
 $update_stmt->execute();
 
-header('Location: http://localhost/Test%20(2)/order_admin_page.php');
+header('Location: http://localhost/PHP%20Project/order_admin_page.php');

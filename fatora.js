@@ -52,9 +52,12 @@ function addToFatora(itemName, itemPrice) {
 
     btnMinus.addEventListener('click', () => {
         let currentValue = parseInt(quantityInput.value);
+        
         if (currentValue > 1) {
             currentValue -= 1;
             quantityInput.value = currentValue;
+            inputForQuantity.value = currentValue;
+            console.log( inputForQuantity.value);
             updatePrice();
         }
     });
@@ -62,6 +65,8 @@ function addToFatora(itemName, itemPrice) {
     btnPlus.addEventListener('click', () => {
         let currentValue = parseInt(quantityInput.value);
         currentValue += 1;
+        inputForQuantity.value = currentValue;
+        console.log( inputForQuantity.value);
         quantityInput.value = currentValue;
         updatePrice();
     });

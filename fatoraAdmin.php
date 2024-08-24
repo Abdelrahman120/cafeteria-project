@@ -19,7 +19,7 @@ if (isset($_POST['user_id']) && !empty($_POST['user_id'])) {
 $selected_user_id = isset($_SESSION['selected_user_id']) ? $_SESSION['selected_user_id'] : null;
 
 try {
-    $stm = $db->prepare("SELECT name, price, image FROM Product");
+    $stm = $db->prepare("SELECT name, price, image FROM Product WHERE status = 'available'");
     $stm->execute();
     $products = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -27,7 +27,6 @@ try {
     $userQuery->execute();
     $users = $userQuery->fetchAll(PDO::FETCH_ASSOC);
 
-    // Fetch room number if a user is selected
     if ($selected_user_id) {
         $roomQuery = $db->prepare("SELECT room FROM User WHERE id = :user_id");
         $roomQuery->bindParam(':user_id', $selected_user_id);
@@ -55,6 +54,14 @@ try {
     
     
     <?php require "navbar.php";
+    session_start();
+    if (isset($_SESSION['error_messages']) && !empty($_SESSION['error_messages'])) {
+        foreach ($_SESSION['error_messages'] as $error) {
+            echo '<div class="alert alert-danger">' . htmlspecialchars($error) . '</div>';
+        }
+        // Clear the error messages
+        $_SESSION['error_messages'] = [];
+    }
     ?>
     
     <div class="container">
@@ -99,8 +106,8 @@ try {
                         <?php foreach ($products as $product){ ?>
                             <div data-name="<?php echo htmlspecialchars($product['name']) ?>" data-price="<?php echo htmlspecialchars($product['price']) ?>" class="col-6 col-md-4 col-lg-3 mb-3 text-center click  position-relative" onclick="addToLastOrder('<?php echo htmlspecialchars($product['image']) ?>'); addToFatora('<?php echo htmlspecialchars($product['name']) ?>', <?php echo htmlspecialchars($product['price']) ?>);">
                                 <img src="<?php echo htmlspecialchars($product['image']) ?>" alt="<?php echo htmlspecialchars($product['name']) ?>" class="img-fluid">
-                                <p><?php echo htmlspecialchars($product['name']) ?></p>
-                                <span style="width: 50px; height: 50px; font-size: 12px;" class="badge bg-primary rounded-pill d-block position-absolute top-0 start-0 d-flex justify-content-center align-items-center "><?= htmlspecialchars($product['price']) ?> LE</span>
+                                <p class="fw-bold fs-3"><?php echo htmlspecialchars($product['name']) ?></p>
+                                <span style="width: 70px; height: 70px; font-size: 15px;" class="badge bg-white text-dark rounded-pill d-block position-absolute top-0 start-0 d-flex justify-content-center align-items-center "><?= htmlspecialchars($product['price']) ?> LE</span>
                             </div>
                         <?php } ?>
                     </div>

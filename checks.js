@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
 function Dropdown() {
     const userDropdown = document.getElementById('users');
     const Names = [...new Set(usersData.map(item => item.name))];
-
     Names.forEach(name => {
         const option = document.createElement('option');
         option.value = name;
@@ -19,64 +18,114 @@ function Dropdown() {
 function displayUsersData() {
     const fTableBody = document.getElementById('f_table').getElementsByTagName('tbody')[0];
     fTableBody.innerHTML = '';
-
     usersData.forEach(user => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${user.name}</td>
             <td>${parseFloat(user.totalAmount).toFixed(2)}</td>
-            <td><button class="btn" style="background-color: #5C3C1B;color:white" onclick="showUserOrders(${user.id}, '${user.name}')">+</button></td>
+            <td>
+                <button class="btn" style="background-color: #5C3C1B;color:white" 
+                        onclick="toggleUserOrders(${user.id}, '${user.name}', this)">
+                    +
+                </button>
+            </td>
         `;
         fTableBody.appendChild(row);
     });
 }
 
-function showUserOrders(userId, userName) {
+function toggleUserOrders(userId, userName, button) {
     const sTable = document.getElementById('s_table');
     const sTableBody = sTable.getElementsByTagName('tbody')[0];
     const imagesContainer = document.getElementById('images_container');
 
-    sTable.style.display = 'table';
-    imagesContainer.style.display = 'none';
+    const isExpanded = button.textContent === '-';
 
-    sTableBody.innerHTML = '';
-
-    const userOrders = ordersData.filter(order => order.user_id === userId);
-
-    userOrders.forEach(order => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${order.date}</td>
-            <td>${parseFloat(order.total).toFixed(2)}</td>
-            <td><button class="btn" style="background-color: #5C3C1B;color:white" onclick="showOrderImages(${order.id})">+</button></td>
-        `;
-        sTableBody.appendChild(row);
+    document.querySelectorAll('#f_table button').forEach(btn => {
+        if (btn !== button) {
+            btn.textContent = '+';
+        }
     });
-}
-
-function showOrderImages(orderId) {
-    const imagesContainer = document.getElementById('images_container');
-    imagesContainer.style.display = 'block';
-
-    const orderImages = orderProductsData.filter(product => product.order_id === orderId);
-
+    sTable.style.display = 'none';
+    imagesContainer.style.display = 'none';
     imagesContainer.innerHTML = '';
 
-    orderImages.forEach(product => {
-        const imageElement = `
-    <div class="card shadow-sm" style="width: 18rem; border-radius: 10px; overflow: hidden;">
-        <img src="${product.image}" class="card-img-top" alt="${product.name}" style="height: 200px; object-fit: cover;">
-        <div class="card-body text-center">
-            <h5 class="card-title mb-2">${product.name}</h5>
-            <p class="card-text text-muted mb-1">${parseFloat(product.price).toFixed(2)} EGP</p>
-            <span class="badge " style="background-color: #5C3C1B; font-size: 1rem; padding: 0.5rem 1rem;">Quantity: ${product.quantity}</span>
-        </div>
-    </div>
+    if (isExpanded) {
+        button.textContent = '+';
+    } else {
+        button.textContent = '-';
+        sTable.style.display = 'table';
+        sTableBody.innerHTML = '';
 
+        const userOrders = ordersData.filter(order => order.user_id === userId);
+        userOrders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${order.date}</td>
+                <td>${parseFloat(order.total).toFixed(2)}</td>
+                <td>
+                    <button class="btn" style="background-color: #5C3C1B;color:white" 
+                            onclick="toggleOrderImages(${order.id}, this)">
+                        +
+                    </button>
+                </td>
+            `;
+            sTableBody.appendChild(row);
+        });
+    }
+}
 
-`;
-        imagesContainer.innerHTML += imageElement;
+function toggleOrderImages(orderId, button) {
+    const imagesContainer = document.getElementById('images_container');
+
+    const isExpanded = button.textContent === '-';
+
+    document.querySelectorAll('#s_table button').forEach(btn => {
+        if (btn !== button) {
+            btn.textContent = '+';
+        }
     });
+    imagesContainer.style.display = 'none';
+
+    if (isExpanded) {
+        button.textContent = '+';
+        imagesContainer.style.display = 'none';
+        imagesContainer.innerHTML = '';
+    } else {
+        button.textContent = '-';
+        imagesContainer.style.display = 'block';
+        imagesContainer.innerHTML = '';
+
+        const orderImages = orderProductsData.filter(product => product.order_id === orderId);
+        if (orderImages.length === 0) {
+            imagesContainer.innerHTML = '<p class="text-center">No Images Available</p>';
+        } else {
+            orderImages.forEach(product => {
+                const imageElement = `<div class='container mt-3 mb-5'>
+                                        <div class='row justify-content-center'>
+                                            <div class='col-12 col-md-8 col-lg-6 col-xl-4 '>
+                                                <div class='card m-2 flex-shrink-0 h-100 d-flex justify-content-center align-items-center rounded-4 py-0 mt-1'  style='width: 18rem;'>
+                                                    <div class='card-body position-relative text-center'>
+                                                        <div class='row justify-content-center'>
+                                                            <img src='${product.image}' class='img-fluid rounded-4' alt='cup_pic' style='max-width: 90%; background-color:#F8F4E1;'>
+                                                            <div class='position-absolute bg-white rounded-circle d-flex align-items-center justify-content-center'
+                                                                style='height: 75px; width: 75px; top: -20px; left: -20px;'>
+                                                                <h1 style='color:#747d88; font-size: 1.1rem;'>${parseFloat(product.price).toFixed(2)}LE</h1>
+                                                            </div>
+                                                        </div>
+                                                        <div class='d-flex justify-content-between align-items-center mt-3'>
+                                                            <h5 class='card-title p-2 fs-5 px-5 rounded-2 text-start' style='color:#5C3C1B; background-color:#AF8F6F;'>${product.name}</h5>
+                                                            <p class='card-title p-2 py-1 fs-5  px-3 rounded-2 text-start' style='color:#5C3C1B; background-color:#AF8F6F;'>${product.quantity}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                imagesContainer.innerHTML += imageElement;
+            });
+        }
+    }
 }
 
 function filterData() {
@@ -98,12 +147,11 @@ function filterData() {
                 return itemDate <= endDate;
             }
         });
-
         const userIdsWithData = new Set(filteredOrders.map(order => order.user_id));
         filteredUsers = filteredUsers.filter(user => userIdsWithData.has(user.id));
     }
 
-    if (selectedUser !== "None") {
+    if (selectedUser !== "") {
         const userId = usersData.find(user => user.name === selectedUser)?.id;
         if (userId !== undefined) {
             filteredOrders = filteredOrders.filter(item => item.user_id === userId);
@@ -143,7 +191,12 @@ function displayFilteredData(filteredOrders, filteredUsers) {
                 const fRow = `<tr>
                                 <td>${user.name}</td>
                                 <td>${userTotals[user.id].toFixed(2)}</td>
-                                <td><button class="btn" style="background-color: #5C3C1B;color:white" onclick="showUserOrders(${user.id}, '${user.name}')">+</button></td>
+                                <td>
+                                    <button class="btn" style="background-color: #5C3C1B;color:white" 
+                                            onclick="toggleUserOrders(${user.id}, '${user.name}', this)">
+                                        +
+                                    </button>
+                                </td>
                               </tr>`;
                 fTableBody.innerHTML += fRow;
             });
@@ -156,7 +209,12 @@ function displayFilteredData(filteredOrders, filteredUsers) {
                 const sRow = `<tr>
                                 <td>${order.date}</td>
                                 <td>${parseFloat(order.total).toFixed(2)}</td>
-                                <td><button class="btn btn-primary" onclick="showOrderImages(${order.id})">+</button></td>
+                                <td>
+                                    <button class="btn" style="background-color: #5C3C1B;color:white" 
+                                            onclick="toggleOrderImages(${order.id}, this)">
+                                        +
+                                    </button>
+                                </td>
                               </tr>`;
                 sTableBody.innerHTML += sRow;
             });
@@ -167,10 +225,8 @@ function displayFilteredData(filteredOrders, filteredUsers) {
 function loadFilters() {
     document.getElementById('date_from').value = '';
     document.getElementById('date_to').value = '';
-    document.getElementById('users').value = 'None';
-    filterData();
+    document.getElementById('users').value = '';
 }
 
-document.getElementById('date_from').addEventListener('input', filterData);
-document.getElementById('date_to').addEventListener('input', filterData);
+document.getElementById('filter_button').addEventListener('click', filterData);
 document.getElementById('users').addEventListener('change', filterData);

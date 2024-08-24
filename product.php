@@ -1,15 +1,12 @@
-
 <?php  
 require 'credit.php';
 session_start();
 if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-    // Redirect non-logged-in users to login page
     header("Location: login_form.php");
     exit();
 }
 
 if ($_SESSION['user_type'] !== 'admin') {
-    // Redirect non-admin users to a different page, for example, user dashboard
     header("Location: fatoraOreder.php");
     exit();
 }
@@ -90,7 +87,7 @@ if ($_SESSION['user_type'] !== 'admin') {
                   <td class='align-middle'>
                  <a href='delete.php?id={$product['id']}&img={$product['image']}' class='btn btn-danger'>Delete </a> 
                   <a href='update.php?id={$product['id']}' class='btn btn-success'>Update </a> 
-
+                  <a href='view_product.php?id={$product['id']}' class='btn btn-primary'>View</a>
                   </td>
                 </tr>";
 

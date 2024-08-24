@@ -40,7 +40,7 @@ function total($total)
     echo "  </div>
                 <div class=  'container text-end  '>
                 <span style=  'color:#7a624a; font-size: 3rem;  '>Total:</span>
-                 <span style=  'color:#747d88; font-size: 2.5rem;  '>EGP {$total}</span>
+                 <span style=  'color:#747d88; font-size: 2.5rem;  '>EGP ".number_format((float)$total, 2, '.', '')."</span>
                  </div>
                  <hr><br>";
 
@@ -61,7 +61,7 @@ function cardItem($product_name = 'Guava', $product_price = 15, $product_quantit
                         <img src='{$product_image_path}' class='img-fluid rounded-4' alt='cup_pic' style='max-width: 90%; background-color:#F8F4E1;'>
                         <div class='position-absolute bg-white rounded-circle d-flex align-items-center justify-content-center'
                              style='height: 75px; width: 75px; top: -20px; left: -20px;'>
-                            <h1 style='color:#747d88; font-size: 1.5rem;'>{$product_price}</h1>
+                            <h1 style='color:#747d88; font-size: 1.2rem;'>".number_format((float)$product_price, 2, '.', '')."LE</h1>
                         </div>
                     </div>
                     <div class='d-flex justify-content-between align-items-center mt-3'>

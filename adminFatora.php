@@ -1,23 +1,26 @@
 <?php
 session_start();
 include "credit.php";
-
-if (!isset($_POST['total']) || !isset($_POST['itemname']) || !isset($_POST['itemQuantity']) || !isset($_POST['itemprice'])) {
-    echo "Error: Missing data.";
+if (!isset($_SESSION['selected_user_id'])) {
+    $_SESSION['error_messages'][] = 'No user selected.';
+    header("Location: fatoraAdmin.php");
     exit();
 }
+
+if (!isset($_POST['itemname']) || !isset($_POST['itemQuantity']) || !isset($_POST['itemprice']) || empty($_POST['itemname']) || empty($_POST['itemQuantity']) || empty($_POST['itemprice'])) {
+    $_SESSION['error_messages'][] = 'All fields are required.';
+    header("Location: fatoraAdmin.php");
+    exit();
+}
+
+    
 $errors=[];
 $total = $_POST['total'];
 $notes = $_POST['notes'];
 $product_names = $_POST['itemname'];
 $quantities = $_POST['itemQuantity'];
 $prices = $_POST['itemprice'];
-
-if (!isset($_SESSION['selected_user_id'])) {
-    echo "Error: No user selected.";
-    exit();
-}
-
+ 
 try {
     $user_id = $_SESSION['selected_user_id']; 
     $sql = "INSERT INTO Orders(date, status, total, notes, user_id) VALUES (:date, :status, :total, :notes, :user_id)";
@@ -79,7 +82,5 @@ try {
 
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
-}
+} 
 ?>
