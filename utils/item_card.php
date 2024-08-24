@@ -22,14 +22,14 @@ function cardItem($product_name = 'Guava', $product_price = 15, $product_quantit
                     <div class='row justify-content-center'>
                         <img src='{$product_image_path}' class='img-fluid rounded-4' alt='cup_pic' style='max-width: 90%; background-color:#F8F4E1;'>
                         <div class='position-absolute bg-white rounded-circle d-flex align-items-center justify-content-center'
-                             style='height: 75px; width: 75px; top: -20px; left: -20px;'>
-                            <h1 style='color:#747d88; font-size: 1.5rem;'>{$product_price}</h1>
+                             style='height: 6rem; width: 6rem; top: -20px; left: -20px;'>
+                            <h1 style='color:#747d88; font-size: 1.5rem;'>" . number_format((float) $product_price, 2, '.', '') . " L.E</h1>
                         </div>
                     </div>
                     <div class='d-flex justify-content-between align-items-center mt-3'>
                         <h5 class='card-title p-2 fs-5 px-5 rounded-2 text-start' style='color:#5C3C1B; background-color:#AF8F6F;'>{$product_name}</h5>
                         <p class='card-title p-2 py-1 fs-5  px-3 rounded-2 text-start' style='color:#5C3C1B; background-color:#AF8F6F;'>{$product_quantity}</p>
-                    </div>
+                    </div>75px
                 </div>
             </div>
         </div>

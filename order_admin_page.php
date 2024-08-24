@@ -1,4 +1,5 @@
 <?php
+global $database;
 require 'db/db_controllers.php';
 require './utils/draw_table.php';
 

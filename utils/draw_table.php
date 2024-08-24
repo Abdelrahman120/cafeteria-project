@@ -83,7 +83,7 @@ function getOrderItems($database, $order_id)
     } catch (PDOException $e) {
         echo "<tr><td colspan='4' class='text-center text-danger'>Error: " . $e->getMessage() . "</td></tr>";
     }
-    $allRows = $select->fetchAll();
+    $allRows = $select->fetchAll(PDO::FETCH_ASSOC);
     $total = 0;
     foreach ($allRows as $row) {
         $total = $row['total'];
@@ -98,7 +98,7 @@ function total($total)
     echo "  </div>
                 <div class=  'container text-end  '>
                 <span style=  'color:#7a624a; font-size: 3rem;  '>Total:</span>
-                 <span style=  'color:#747d88; font-size: 2.5rem;  '>EGP {$total}</span>
+                 <span style=  'color:#747d88; font-size: 2.5rem;  '>EGP " . number_format((float) $total, 2, '.', '') . "</span>
                  </div>
                  <hr><br>";
 
